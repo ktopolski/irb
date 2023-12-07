@@ -595,10 +595,13 @@ module IRB
       end
     end
 
-    SIMPLE_COMMAND_REGEXP = /^(?<cmd_name>\S+)$/
-    COMMAND_WITH_ARGS_REGEXP = /^(?<cmd_name>\S+) +(?<cmd_arg>[^-]\S*)$/
-    COMMAND_WITH_FLAGS_REGEXP = /^(?<cmd_name>\S+) +(?<cmd_flag>-[a-zA-Z]+( +\S+)*)$/
-    COMMAND_WITH_ARGS_AND_FLAGS_REGEXP = /^(?<cmd_name>\S+) +(?<cmd_arg>[^-]\S*) +(?<cmd_flag>-[a-zA-Z]+( +\S+)*)$/
+    COMMAND_FLAG_REGEXP = /(?<cmd_flag>-[a-zA-Z]+( +\S+)*)/
+    COMMAND_ARG_REGEXP = /(?<cmd_arg>[^-]\S*)/
+    COMMAND_NAME_REGEXP = /(?<cmd_name>\S+)/
+    SIMPLE_COMMAND_REGEXP = /^#{COMMAND_NAME_REGEXP}$/
+    COMMAND_WITH_ARGS_REGEXP = /^#{COMMAND_NAME_REGEXP} +#{COMMAND_ARG_REGEXP}$/
+    COMMAND_WITH_FLAGS_REGEXP = /^#{COMMAND_NAME_REGEXP} +#{COMMAND_FLAG_REGEXP}$/
+    COMMAND_WITH_ARGS_AND_FLAGS_REGEXP = /^#{COMMAND_NAME_REGEXP} +#{COMMAND_ARG_REGEXP} +#{COMMAND_FLAG_REGEXP}$/
 
     COMMAND_REGEXP = Regexp.union(
       SIMPLE_COMMAND_REGEXP,
