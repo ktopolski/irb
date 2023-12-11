@@ -66,7 +66,7 @@ module TestIRB
           FileUtils.touch(project_dir+"/.irb#{IRB::IRBRC_EXT}")
           IRB.conf[:RC_NAME_GENERATOR] = nil
           assert_equal(project_dir+"/.irb#{IRB::IRBRC_EXT}", IRB.rc_file)
-          assert_equal(project_dir+"/.irb_history", IRB.rc_file("_history"))
+          assert_equal(tmpdir+"/.irb_history", IRB.rc_file("_history"))
         end
       end
     end

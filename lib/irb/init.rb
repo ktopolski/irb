@@ -421,6 +421,26 @@ module IRB # :nodoc:
     end
   end
 
+  IRBHISTORY_EXT = "_history"
+  def IRB.history_file
+    if @CONF[:HISTORY_FILE] && File.exists?(@CONF[:HISTORY_FILE])
+      history_file = @CONF[:HISTORY_FILE]
+    else
+      rc_file_generators do |rcgen|
+        if File.exist?(rcgen.call(IRBHISTORY_EXT))
+          history_file = rcgen.call(IRBHISTORY_EXT)
+          break
+        end
+      end
+    end
+    case history_file
+    when String
+      return history_file
+    else
+      fail IllegalRCNameGenerator
+    end
+  end
+
   # enumerate possible rc-file base name generators
   def IRB.rc_file_generators
     if irbrc = ENV["IRBRC"]
